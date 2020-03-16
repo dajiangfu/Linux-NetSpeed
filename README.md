@@ -4,7 +4,7 @@
 
 使用方法：
 
-wget -N --no-check-certificate "https://raw.githubusercontent.com/dajiangfu/Linux-NetSpeed/master/tcp.sh"
+wget -N "https://raw.githubusercontent.com/dajiangfu/Linux-NetSpeed/master/tcp.sh"
 
 chmod +x tcp.sh
 
@@ -12,4 +12,4 @@ chmod +x tcp.sh
 
 用法示例：
 
-cd /usr/src && wget -N --no-check-certificate "https://raw.githubusercontent.com/dajiangfu/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
+cd /usr/src && wget -N "https://raw.githubusercontent.com/dajiangfu/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
