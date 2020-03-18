@@ -111,6 +111,8 @@ startbbr(){
 	echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 	sysctl -p
 	echo -e "${Info}BBR启动成功！"
+	sleep 1s
+	start_menu
 }
 
 #启用BBRplus
@@ -120,6 +122,8 @@ startbbrplus(){
 	echo "net.ipv4.tcp_congestion_control=bbrplus" >> /etc/sysctl.conf
 	sysctl -p
 	echo -e "${Info}BBRplus启动成功！"
+	sleep 1s
+	start_menu
 }
 
 #编译并启用BBR魔改
@@ -160,6 +164,8 @@ startbbrmod(){
 	sysctl -p
     cd .. && rm -rf bbrmod
 	echo -e "${Info}魔改版BBR启动成功！"
+	sleep 1s
+	start_menu
 }
 
 #编译并启用BBR魔改
@@ -198,6 +204,8 @@ startbbrmod_nanqinlang(){
 	echo "net.ipv4.tcp_congestion_control=nanqinlang" >> /etc/sysctl.conf
 	sysctl -p
 	echo -e "${Info}魔改版BBR启动成功！"
+	sleep 1s
+	start_menu
 }
 
 #启用Lotserver
@@ -359,7 +367,13 @@ echo && echo -e " TCP加速 一键安装管理脚本 ${Red_font_prefix}[v${sh_ve
 		echo -e " 当前状态: ${Green_font_prefix}未安装${Font_color_suffix} 加速内核 ${Red_font_prefix}请先安装内核${Font_color_suffix}"
 	else
 		echo -e " 当前状态: ${Green_font_prefix}已安装${Font_color_suffix} ${_font_prefix}${kernel_status}${Font_color_suffix} 加速内核 , ${Green_font_prefix}${run_status}${Font_color_suffix}"
-		
+		if [[ ${run_status} =~ "成功" ]]; then
+			read -p "模块已经安装并启动成功，是否退出脚本 ?请输入 [Y/n] :" yn
+			[ -z "${yn}" ] && yn="y"
+			if [[ $yn == [Yy] ]]; then
+				exit 1
+			fi
+		fi
 	fi
 echo
 read -p " 请输入数字 [0-11]:" num
@@ -403,7 +417,7 @@ case "$num" in
 	*)
 	clear
 	echo -e "${Error}:请输入正确数字 [0-11]"
-	sleep 5s
+	sleep 3s
 	start_menu
 	;;
 esac
@@ -506,6 +520,7 @@ check_version(){
 
 #检查安装bbr的系统要求
 check_sys_bbr(){
+	remove_all
 	check_version
 	if [[ "${release}" == "centos" ]]; then
 		if [[ ${version} -ge "6" ]]; then
@@ -531,6 +546,7 @@ check_sys_bbr(){
 }
 
 check_sys_bbrplus(){
+	remove_all
 	check_version
 	if [[ "${release}" == "centos" ]]; then
 		if [[ ${version} -ge "6" ]]; then
@@ -558,6 +574,7 @@ check_sys_bbrplus(){
 
 #检查安装Lotsever的系统要求
 check_sys_Lotsever(){
+	remove_all
 	check_version
 	if [[ "${release}" == "centos" ]]; then
 		if [[ ${version} == "6" ]]; then
